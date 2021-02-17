@@ -90,13 +90,14 @@ The
 
 This function stops execution of all threads within the process and requests cancellation of all pending I/O. The terminated process cannot exit until all pending I/O has been completed or canceled. When a process terminates, its kernel object is not destroyed until all processes that have open handles to the process have released those handles.
 
-When a process terminates itself, <b>TerminateProcess</b> stops execution of the calling thread and does not return.
-Otherwise, <b>TerminateProcess</b> is asynchronous; it initiates termination and returns immediately. If you need to be
+When a process terminates itself, <b>TerminateProcess</b> stops execution of the calling thread and does not return. Otherwise, <b>TerminateProcess</b> is asynchronous; it initiates termination and returns immediately. If you need to be
 sure the process has terminated, call the
 <a href="/windows/desktop/api/synchapi/nf-synchapi-waitforsingleobject">WaitForSingleObject</a> function with a handle
-to the process.
+to the process. 
 
 A process cannot prevent itself from being terminated.
+
+After a process has terminated, call to <b>TerminateProcess</b> with open handles to the process fails with <b>ERROR_ACCESS_DENIED</b> (5) error code.
 
 ## -see-also
 
